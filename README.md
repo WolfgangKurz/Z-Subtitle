@@ -1,4 +1,6 @@
 # Z-Subtitle
+[![License](https://img.shields.io/github/license/WolfgangKurz/Z-Subtitle.svg?style=flat-square)](https://github.com/WolfgangKurz/Z-Subtitle/blob/master/LICENSE)
+
 Z-Subtitle is plugin for KanColleViewer, shows Korean subtitles to KanColleViewer client.
 
 This plugin uses [KC3's subtitle texts](https://github.com/KC3Kai/kc3-translations/tree/master/data).
