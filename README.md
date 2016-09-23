@@ -15,7 +15,7 @@ This plugin has developed on Windows 10 x64 Home, Visual Studio Community 2015.
 * Windows 10 x64 Home
 * Windows 10 x64 Pro
 
-Another platform has not tested.
+The other platforms has not tested.
 
 Some people says doesn't work on Windows 7.
 
