@@ -25,7 +25,7 @@ namespace ZSubtitle.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("맑은 고딕")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MalgunGothic")]
         public string FontName {
             get {
                 return ((string)(this["FontName"]));
@@ -37,25 +37,13 @@ namespace ZSubtitle.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("16")]
-        public float FontSize {
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
+        public double FontSize {
             get {
-                return ((float)(this["FontSize"]));
+                return ((double)(this["FontSize"]));
             }
             set {
                 this["FontSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.95")]
-        public float FontOutline {
-            get {
-                return ((float)(this["FontOutline"]));
-            }
-            set {
-                this["FontOutline"] = value;
             }
         }
         
@@ -74,9 +62,9 @@ namespace ZSubtitle.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.9")]
-        public float Opacity {
+        public double Opacity {
             get {
-                return ((float)(this["Opacity"]));
+                return ((double)(this["Opacity"]));
             }
             set {
                 this["Opacity"] = value;

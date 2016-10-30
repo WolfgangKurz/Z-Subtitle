@@ -3,18 +3,15 @@
   <Profiles />
   <Settings>
     <Setting Name="FontName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">맑은 고딕</Value>
+      <Value Profile="(Default)">MalgunGothic</Value>
     </Setting>
-    <Setting Name="FontSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">16</Value>
-    </Setting>
-    <Setting Name="FontOutline" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">2.95</Value>
+    <Setting Name="FontSize" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">22</Value>
     </Setting>
     <Setting Name="FontBold" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Opacity" Type="System.Single" Scope="User">
+    <Setting Name="Opacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.9</Value>
     </Setting>
   </Settings>

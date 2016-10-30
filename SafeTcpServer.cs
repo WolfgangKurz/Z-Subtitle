@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace ZSubtitle
 {
-    internal class SafeTcpServer : TrotiNet.TcpServer
-    {
-        public SafeTcpServer(int listeningPort, bool isUseIPv6) : base(listeningPort, isUseIPv6) { }
+	internal class SafeTcpServer : TrotiNet.TcpServer
+	{
+		public SafeTcpServer(int listeningPort, bool isUseIPv6) : base(listeningPort, isUseIPv6) { }
 
-        public void Shutdown()
-        {
-            base.Stop();
+		public void Shutdown()
+		{
+			base.Stop();
 
-            foreach (var socket in ConnectedSockets.Values.ToArray())
-            {
-                this.CloseSocket(socket);
-            }
-        }
+			foreach (var socket in ConnectedSockets.Values.ToArray())
+			{
+				this.CloseSocket(socket);
+			}
+		}
 
-        public new void Stop()
-        {
-            Shutdown();
-        }
-    }
+		public new void Stop()
+		{
+			Shutdown();
+		}
+	}
 }

@@ -21,7 +21,7 @@ Some people says doesn't work on Windows 7.
 
 
 ### Update
-Original author "WolfgangKurz" never updates this plugin.
+Original author "WolfgangKurz" will not updates this plugin.
 
 If you want, make Pull Request to this project.
 
