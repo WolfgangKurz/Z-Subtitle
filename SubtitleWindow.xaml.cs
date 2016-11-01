@@ -58,7 +58,7 @@ namespace ZSubtitle
 			var attr = attrs.FirstOrDefault(x => x.Name == "Version");
 			string ver = attr.Value as string;
 			ver = string.Format(
-				"Z-Subtitle v{0}, 2016-10-31 updated",
+				"Z-Subtitle v{0}, 2016-11-01 updated",
 				string.IsNullOrEmpty(ver) ? "Unknown" : ver
 			);
 
@@ -70,7 +70,7 @@ namespace ZSubtitle
 			this.Timer.Interval = TimeSpan.FromMilliseconds(30);
 			this.Timer.Tick += new EventHandler((s, e) =>
 			{
-				Win32.MoveTo(this.Handle, 0, 0);
+				this.PositionPatch();
 
 				if (TimeAlpha > 0)
 					TimeAlpha = Math.Max(0, TimeAlpha - 0.03f);
@@ -78,10 +78,25 @@ namespace ZSubtitle
 			this.Timer.Start();
 
 			this.Show();
-			this.RenderText(ver, 4.0f);
+			this.RenderText(ver, 5.0f);
 			PrepareDrawing();
 		}
 
+		private void PositionPatch()
+		{
+			var version = Environment.OSVersion.Version;
+			if((version.Major == 6 && version.Minor >= 2) || version.Major > 6)
+			{
+				// Windows 8 or over
+				Win32.MoveTo(this.Handle, 0, 0);
+			}
+			else
+			{
+				// Windows 7 or below
+				Point pt = ParentBrowser.PointFromScreen(new Point(0, 0));
+				Win32.MoveTo(this.Handle, -(int)pt.X, -(int)pt.Y);
+			}
+		}
 		private void WindowPatch()
 		{
 			this.WindowState = WindowState.Maximized;
@@ -91,7 +106,7 @@ namespace ZSubtitle
 			Win32.SetParentWindow(Handle, ParentBrowser.Handle);
 			Win32.ClickThrough(Handle);
 			Win32.SetTopMost(Handle);
-			Win32.MoveTo(Handle, 0, 0);
+			this.PositionPatch();
 		}
 
 		private void PrepareDrawing()
