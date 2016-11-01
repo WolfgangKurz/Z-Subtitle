@@ -12,6 +12,8 @@ This plugin has developed on Windows 10 x64 Home, Visual Studio Community 2015.
 
 
 ### Tested platforms
+* Windows 7 x64 Pro KN
+* Windows 8 x64 Pro
 * Windows 10 x64 Home
 * Windows 10 x64 Pro
 
