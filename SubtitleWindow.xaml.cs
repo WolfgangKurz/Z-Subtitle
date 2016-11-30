@@ -28,8 +28,8 @@ namespace ZSubtitle
 				this._TimeAlpha = value;
 				this.RootLayout.Opacity = Math.Min(
 					1.0,
-					TimeAlpha * ZSettings.Get<double>("Opacity").GetValueOrDefault(1.0)
-				);
+					TimeAlpha
+				) * double.Parse((string)ZSettings.Get("Opacity") ?? "0.9");
 			}
 		}
 
@@ -112,9 +112,9 @@ namespace ZSubtitle
 		private void PrepareDrawing()
 		{
 			FontFamily FontFamily = new FontFamily(ZSettings.Get("FontName")?.ToString() ?? "MalgunGothic");
-			FontWeight FontWeight = ZSettings.Get<bool>("FontBold").GetValueOrDefault(true) ? FontWeights.Bold : FontWeights.Regular;
+			FontWeight FontWeight = bool.Parse((string)ZSettings.Get("FontBold") ?? "true") ? FontWeights.Bold : FontWeights.Regular;
 
-			double FontSize = ZSettings.Get<double>("FontSIze").GetValueOrDefault(16.0);
+			double FontSize = double.Parse((string)ZSettings.Get("FontSIze") ?? "22.0");
 			FontSize *= ParentBrowser.Width / 800;
 
 			this.SubtitleText.FontFamily = FontFamily;

@@ -27,12 +27,12 @@ namespace ZSubtitle
 	[ExportMetadata("Guid", "0F4929C2-060D-40FC-B33A-1845F7A06CF2")]
 	[ExportMetadata("Title", "Z-Subtitle")]
 	[ExportMetadata("Description", "Z-Subtitle for KanColleViewer")]
-	[ExportMetadata("Version", "1.1.1")]
+	[ExportMetadata("Version", "1.1.2")]
 	[ExportMetadata("Author", "BeerAdmiral")] // wolfgangkurzdev@gmail.com
 	[ExportMetadata("AuthorURL", "http://swaytwig.com/")]
 	public class ZSubtitleProject : IPlugin
 	{
-		internal static Api_Mst_Shipgraph[] Shipgraph { get; private set; }
+		internal static kcsapi_mst_shipgraph[] Shipgraph { get; private set; }
 		internal SubtitleWindow output;
 
 		internal int ProxyPort { get; } = 40728;
