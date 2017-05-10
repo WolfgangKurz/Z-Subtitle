@@ -27,31 +27,20 @@ namespace ZSubtitle
 	[ExportMetadata("Guid", "0F4929C2-060D-40FC-B33A-1845F7A06CF2")]
 	[ExportMetadata("Title", "Z-Subtitle")]
 	[ExportMetadata("Description", "Z-Subtitle for KanColleViewer")]
-	[ExportMetadata("Version", "1.1.2")]
+	[ExportMetadata("Version", "1.2.0")]
 	[ExportMetadata("Author", "BeerAdmiral")] // wolfgangkurzdev@gmail.com
 	[ExportMetadata("AuthorURL", "http://swaytwig.com/")]
 	public class ZSubtitleProject : IPlugin
 	{
 		internal static kcsapi_mst_shipgraph[] Shipgraph { get; private set; }
-		internal SubtitleWindow output;
+		internal SubtitlePatcher patcher { get; private set; }
 
 		internal int ProxyPort { get; } = 40728;
 
 		public void Initialize()
 		{
-			var r = new Random();
+			this.patcher = new SubtitlePatcher();
 
-			System.Windows.Application app = Grabacr07.KanColleViewer.Application.Current;
-			app.Dispatcher.Invoke(() =>
-			{
-				app.Startup += (s, e) =>
-				{
-					var host = WPFTool.FindElement<KanColleHost>(app.MainWindow.Content as System.Windows.UIElement);
-					output = new SubtitleWindow(host);
-
-					new Thread(() => Translator.getVoiceLength("")).Start();
-				};
-			});
 			KanColleClient.Current.Proxy.api_start2.TryParse<kcsapi_start2>().Subscribe(s =>
 			{
 				Shipgraph = s.Data.api_mst_shipgraph;
@@ -78,11 +67,29 @@ namespace ZSubtitle
 			if (Server.InitListenException != null)
 				throw Server.InitListenException;
 
-			Grabacr07.KanColleViewer.Application.Current.Exit += (s, e) => Server.Shutdown();
+			new Thread(() => Translator.getVoiceLength("")).Start();
+			Grabacr07.KanColleViewer.Application.Current.Exit += async (s, e) =>
+			{
+				Server.Shutdown();
+
+				try
+				{
+					await Task.Delay(3000);
+					Environment.Exit(0);
+				}
+				catch { }
+			};
 		}
 
 		private void Subtitle(string path)
 		{
+			var app = Grabacr07.KanColleViewer.Application.Current;
+			app.Dispatcher.Invoke(() =>
+			{
+				var host = WPFTool.FindElement<KanColleHost>(app.MainWindow.Content as System.Windows.UIElement);
+				patcher.Prepare(host, app.Dispatcher);
+			});
+
 			new Thread(() =>
 			{
 				string[] part = path.Split('/');
@@ -106,9 +113,8 @@ namespace ZSubtitle
 				}
 				if (string.IsNullOrWhiteSpace(text)) return;
 
-				float voiceLength = 0.001f * Translator.getVoiceLength(text) + 1.0f;
-
-				output.Dispatcher.Invoke((Action)(() => output.RenderText(text, voiceLength)));
+				float voiceLength = Translator.getVoiceLength(text) + 1000.0f;
+				patcher.Update(text, (int)(voiceLength * 1.5f));
 			}).Start();
 		}
 	}
