@@ -5,21 +5,10 @@ Z-Subtitle is plugin for KanColleViewer, shows Korean subtitles to KanColleViewe
 
 This plugin uses [KC3's subtitle texts](https://github.com/KC3Kai/kc3-translations/tree/master/data).
 
--
+-----
 
 ### Developed Environment
 This plugin has developed on Windows 10 x64 Home, Visual Studio Community 2015.
-
-
-### Tested platforms
-* Windows 7 x64 Pro KN
-* Windows 8 x64 Pro
-* Windows 10 x64 Home
-* Windows 10 x64 Pro
-
-The other platforms has not tested.
-
-Some people says doesn't work on Windows 7.
 
 
 ### Update
