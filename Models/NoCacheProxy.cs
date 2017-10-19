@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrotiNet;
+using Nekoxy;
 
 namespace ZSubtitle
 {
@@ -34,6 +35,36 @@ namespace ZSubtitle
 
 			// ResponseHeaders.Expires = "Fri, 01 Jan 1990 00:00:00 GMT";
 			// ResponseHeaders.Pragma = "no-cache";
+		}
+
+		/// <summary>
+		/// SendResponseをoverrideし、リクエストデータを読み取る。
+		/// </summary>
+		protected override void SendRequest()
+		{
+			//HTTPリクエストヘッダ送信
+			this.SocketPS.WriteBinary(Encoding.ASCII.GetBytes(
+				$"{this.RequestLine.RequestLine}\r\n{this.RequestHeaders.HeadersInOrder}\r\n"));
+
+			byte[] request = null;
+			if (this.State.bRequestHasMessage)
+			{
+				if (this.State.bRequestMessageChunked)
+				{
+					//FIXME: chunked request のデータ読み取りは未対応
+					this.SocketBP.TunnelChunkedDataTo(this.SocketPS);
+				}
+				else
+				{
+					//Requestデータを読み取って流す
+					request = new byte[this.State.RequestMessageLength];
+					this.SocketBP.TunnelDataTo(request, this.State.RequestMessageLength);
+					this.SocketPS.TunnelDataTo(this.TunnelPS, request);
+				}
+			}
+
+			//ReadResponseへ移行
+			this.State.NextStep = this.ReadResponse;
 		}
 	}
 }
